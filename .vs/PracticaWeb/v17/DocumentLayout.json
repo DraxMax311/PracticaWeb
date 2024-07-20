@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\HS1\\source\\repos\\PracticaWeb\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{92C2BFC9-AA1D-4F9F-BDF8-8B8A81CCED00}|PracticaWeb\\PracticaWeb.csproj|c:\\users\\hs1\\source\\repos\\practicaweb\\practicaweb\\controllers\\productoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92C2BFC9-AA1D-4F9F-BDF8-8B8A81CCED00}|PracticaWeb\\PracticaWeb.csproj|solutionrelative:practicaweb\\controllers\\productoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92C2BFC9-AA1D-4F9F-BDF8-8B8A81CCED00}|PracticaWeb\\PracticaWeb.csproj|c:\\users\\hs1\\source\\repos\\practicaweb\\practicaweb\\views\\productos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{92C2BFC9-AA1D-4F9F-BDF8-8B8A81CCED00}|PracticaWeb\\PracticaWeb.csproj|solutionrelative:practicaweb\\views\\productos\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92C2BFC9-AA1D-4F9F-BDF8-8B8A81CCED00}|PracticaWeb\\PracticaWeb.csproj|c:\\users\\hs1\\source\\repos\\practicaweb\\practicaweb\\models\\paginatedlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92C2BFC9-AA1D-4F9F-BDF8-8B8A81CCED00}|PracticaWeb\\PracticaWeb.csproj|solutionrelative:practicaweb\\models\\paginatedlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\HS1\\source\\repos\\PracticaWeb\\PracticaWeb\\Views\\Productos\\Index.cshtml",
+              "RelativeDocumentMoniker": "PracticaWeb\\Views\\Productos\\Index.cshtml",
+              "ToolTip": "C:\\Users\\HS1\\source\\repos\\PracticaWeb\\PracticaWeb\\Views\\Productos\\Index.cshtml",
+              "RelativeToolTip": "PracticaWeb\\Views\\Productos\\Index.cshtml",
+              "ViewState": "AQIAABgAAAAAAAAAAAAAAF8AAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-20T00:39:34.502Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PaginatedList.cs",
+              "DocumentMoniker": "C:\\Users\\HS1\\source\\repos\\PracticaWeb\\PracticaWeb\\Models\\PaginatedList.cs",
+              "RelativeDocumentMoniker": "PracticaWeb\\Models\\PaginatedList.cs",
+              "ToolTip": "C:\\Users\\HS1\\source\\repos\\PracticaWeb\\PracticaWeb\\Models\\PaginatedList.cs",
+              "RelativeToolTip": "PracticaWeb\\Models\\PaginatedList.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-20T00:33:02.365Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ProductosController.cs",
+              "DocumentMoniker": "C:\\Users\\HS1\\source\\repos\\PracticaWeb\\PracticaWeb\\Controllers\\ProductosController.cs",
+              "RelativeDocumentMoniker": "PracticaWeb\\Controllers\\ProductosController.cs",
+              "ToolTip": "C:\\Users\\HS1\\source\\repos\\PracticaWeb\\PracticaWeb\\Controllers\\ProductosController.cs",
+              "RelativeToolTip": "PracticaWeb\\Controllers\\ProductosController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAMAAAAcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-19T03:32:08.064Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+﻿@using PracticaWeb.Models
+@model PaginatedList<Productos>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container card">
+    <h1>Productos</h1>
+    <form asp-action="Index" method="get">
+        <div class="form-actions no-color">
+            <p>
+                Buscar: <input type="text" name="busqueda" value="@ViewData["Filtro"]" />
+                <input type="submit" value="Busqueda" class="btn btn-secondary" />
+                <a class="btn btn-danger" asp-action="Index">Limpiar Filtro</a>
+            </p>
+        </div>
+    </form>
+</div>
+<br />
+<div class="container card">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <a asp-action="Index" asp-route-columna="@ViewData["ParamOrdenClave"]" asp-route-busqueda="@ViewData["Filtro"]">Clave</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-columna="@ViewData["ParamOrdenActivo"]" asp-route-busqueda="@ViewData["Filtro"]">Activo</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-columna="@ViewData["ParamOrdenPrecio"]" asp-route-busqueda="@ViewData["Filtro"]">Precio</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-columna="@ViewData["ParamOrdenClaveProv"]" asp-route-busqueda="@ViewData["Filtro"]">Clave Proveedor</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-columna="@ViewData["ParamOrdenPrecioProv"]" asp-route-busqueda="@ViewData["Filtro"]">Precio Proveedor</a>
+                </th>
+                <th>
+                    <a asp-action="Index" asp-route-columna="@ViewData["ParamOrdenTipo"]" asp-route-busqueda="@ViewData["Filtro"]">Tipo Producto</a>
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Clave)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Activo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Precio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ClaveProveedor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PrecioProveedor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TipoProducto)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ID_Producto">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ID_Producto">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p style="display:flex;justify-content:flex-end">
+        <a asp-action="Crear" class="btn btn-primary">Agregar Producto</a>
+    </p>
+
+    @{
+        var prevDeshabilitado = !Model.HasPreviousPage ? "disabled" : "";
+        var sigDeshabilitado = !Model.HasNextPage ? "disabled" : "";
+    }
+    <div class="row" style="display:flex;justify-content:center">
+        <div class="col-6" style="display:flex;justify-content:center">
+            <a asp-action="Index"
+               asp-route-columna="@ViewData["OrdenActual"]"
+               asp-route-pagina="@(Model.PageIndex - 1)"
+               asp-route-busqueda="@ViewData["Filtro"]"
+               class="btn btn-default @prevDeshabilitado">
+                Anterior
+            </a>
+        </div>
+        <div class="col-6" style="display:flex;justify-content:center">
+            <a asp-action="Index"
+               asp-route-columna="@ViewData["OrdenActual"]"
+               asp-route-pagina="@(Model.PageIndex + 1)"
+               asp-route-busqueda="@ViewData["Filtro"]"
+               class="btn btn-default @sigDeshabilitado">
+                Siguiente
+            </a>
+        </div>
+    </div>
+
+</div>
