@@ -5,13 +5,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
-
-<h4>Productos</h4>
+<div class="col-12">
+    <div class="row">
+        <div class="col-6">
+            <h1>Editar</h1>
+        </div>
+        <div class="col-6">
+            <a asp-action="Index" class="btn btn-danger position-absolute" style="right:7.5%; translateY(-50%);">Volver </a>
+        </div>
+    </div>
+</div>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+<form asp-action="Edit">
+    <div class="row" style="display:flex;justify-content:center">
+        <div class="col-6">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID_Producto" />
             <div class="form-group">
@@ -19,39 +26,107 @@
                 <input asp-for="Clave" class="form-control" />
                 <span asp-validation-for="Clave" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
+            <div class="form-group">
+                <label asp-for="TipoProducto" class="control-label"></label>
+                <select name="tipo" class="form-control" asp-items="@ViewBag.Tipos" aria-label="Seleccione un tipo">
+                    <span asp-validation-for="TipoProducto" class="text-danger"></span>
+                </select>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <p>&ensp;</p>
+                <label class="form-check-label" style="display:flex;justify-content:center">
                     <input class="form-check-input" asp-for="Activo" /> @Html.DisplayNameFor(model => model.Activo)
                 </label>
             </div>
-            <div class="form-group">
-                <label asp-for="Precio" class="control-label"></label>
-                <input asp-for="Precio" class="form-control" />
-                <span asp-validation-for="Precio" class="text-danger"></span>
+        </div>
+    </div>
+    <p></p>
+    <div class="row">
+        <h5>Proveedores</h5>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-bordered table-hover table-light">
+                <thead>
+                    <tr>
+                        <th>
+                            Proveedor
+                        </th>
+                        <th>
+                            Clave Producto
+                        </th>
+                        <th>
+                            Costo
+                        </th>
+                        <th style="width:15%">
+                            <button type="button" class="btn btn-success" data-toggle="modal" backdrop="static" data-target="#modalNuevoProveedor" id="btnAgregarProveedor"
+                                    style="padding:2px;padding-left:5px;padding-right:5px;width:90%">
+                                Agregar Proveedor
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.Precios)
+                    {
+                        <tr>
+                            <td>@item.Proveedor</td>
+                            <td>@item.Clave</td>
+                            <td>$@item.Costo</td>
+                            <td><a class="btn btn-warning">Editar</a>&ensp;<a class="btn btn-danger">Eliminar</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="form-group" style="display:flex;justify-content:center">
+        <input type="submit" value="Guardar" class="btn btn-primary" />
+    </div>
+</form>
+<div class="modal fade" id="modalNuevoProveedor" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalAgregarProveedorTitulo">Agregar Proveedor</h5>
+                <button class="btn btn-danger" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
             </div>
-            <div class="form-group">
-                <label asp-for="ClaveProveedor" class="control-label"></label>
-                <input asp-for="ClaveProveedor" class="form-control" />
-                <span asp-validation-for="ClaveProveedor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PrecioProveedor" class="control-label"></label>
-                <input asp-for="PrecioProveedor" class="form-control" />
-                <span asp-validation-for="PrecioProveedor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TipoProducto" class="control-label"></label>
-                <input asp-for="TipoProducto" class="form-control" />
-                <span asp-validation-for="TipoProducto" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+            <form>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-center">
+                        <div class="form-group">
+                            <label class="control-label">Proveedor</label>
+                            <select name="tipo" class="form-control" asp-items="@ViewBag.Proveedores" aria-label="Seleccione un tipo">
+                                <span asp-validation-for="TipoProducto" class="text-danger"></span>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center form-group">
+                        <div class="form-group">
+                            <label class="control-label">Clave</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center form-group">
+                        <div class="form-group">
+                            <label class="control-label">Precio</label>
+                            <input type="number" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input class="btn btn-primary" type="submit" value="Guardar Proveedor">
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 

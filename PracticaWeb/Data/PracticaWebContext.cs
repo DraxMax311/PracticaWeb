@@ -14,6 +14,9 @@ namespace PracticaWeb.Data
         {
         }
 
-        public DbSet<PracticaWeb.Models.Productos> Productos { get; set; } = default!;
+        public DbSet<Productos> ProductosDB { get; set; } = default!;
+        public DbSet<Proveedores> ProveedoresDB { get; set; } = default!;
+        public DbSet<TipoProductos> TipoProductosDB { get; set; } = default!;
+        public DbSet<PrecioProveedores> PreciosProveedoresDB { get; set; } = default!;
     }
 }
