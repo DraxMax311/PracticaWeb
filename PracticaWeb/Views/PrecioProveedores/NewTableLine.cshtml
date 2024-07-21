@@ -1,0 +1,12 @@
+﻿@{
+    PracticaWeb.Models.PrecioProveedores item = (PracticaWeb.Models.PrecioProveedores)ViewBag.NuevoPrecio;
+    <tr>
+        <td>@item.ID_Proveedor</td>
+        <td>@item.ClaveProveedor</td>
+        <td>$@item.Precio</td>
+        <td>
+            <a asp-controller="PrecioProveedores" asp-action="Edit" asp-route-id="@item.ID_Precio" class="btn btn-warning">Editar</a> |
+            <a asp-controller="PrecioProveedores" asp-action="Delete" asp-route-id="@item.ID_Precio" class="btn btn-danger">Borrar</a>
+        </td>
+    </tr>
+}

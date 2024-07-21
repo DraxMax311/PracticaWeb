@@ -34,6 +34,30 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/HS1/source/repos/PracticaWeb/PracticaWeb/Views/PrecioProveedores/Crear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlY2lvUHJvdmVlZG9yZXNcQ3JlYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HS1/source/repos/PracticaWeb/PracticaWeb/Views/PrecioProveedores/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlY2lvUHJvdmVlZG9yZXNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HS1/source/repos/PracticaWeb/PracticaWeb/Views/PrecioProveedores/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlY2lvUHJvdmVlZG9yZXNcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HS1/source/repos/PracticaWeb/PracticaWeb/Views/PrecioProveedores/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlY2lvUHJvdmVlZG9yZXNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HS1/source/repos/PracticaWeb/PracticaWeb/Views/PrecioProveedores/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlY2lvUHJvdmVlZG9yZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/HS1/source/repos/PracticaWeb/PracticaWeb/Views/PrecioProveedores/NewTableLine.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJlY2lvUHJvdmVlZG9yZXNcTmV3VGFibGVMaW5lLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/HS1/source/repos/PracticaWeb/PracticaWeb/Views/Productos/Crear.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdG9zXENyZWFyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -48,26 +72,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/HS1/source/repos/PracticaWeb/PracticaWeb/Views/Productos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdG9zXEluZGV4LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/HS1/source/repos/PracticaWeb/PracticaWeb/Views/Proveedores/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmVlZG9yZXNcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/HS1/source/repos/PracticaWeb/PracticaWeb/Views/Proveedores/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmVlZG9yZXNcRGVsZXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/HS1/source/repos/PracticaWeb/PracticaWeb/Views/Proveedores/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmVlZG9yZXNcRGV0YWlscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/HS1/source/repos/PracticaWeb/PracticaWeb/Views/Proveedores/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmVlZG9yZXNcRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/HS1/source/repos/PracticaWeb/PracticaWeb/Views/Proveedores/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvdmVlZG9yZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/HS1/source/repos/PracticaWeb/PracticaWeb/Views/Shared/Error.cshtml]

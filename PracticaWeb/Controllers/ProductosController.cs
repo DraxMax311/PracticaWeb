@@ -49,6 +49,13 @@ namespace PracticaWeb.Controllers
         // GET: Productos/Crear
         public IActionResult Crear()
         {
+            List<SelectListItem> tiposProducto = (from tipoProducto in _context.TipoProductosDB
+                                                  select new SelectListItem()
+                                                  {
+                                                      Text = tipoProducto.Nombre + " | " + tipoProducto.Descripcion,
+                                                      Value = tipoProducto.ID_TipoProducto.ToString()
+                                                  }).ToList();
+            ViewBag.Tipos = tiposProducto;
             return View();
         }
 
@@ -84,15 +91,15 @@ namespace PracticaWeb.Controllers
             List<Proveedores> proveedores = await _context.ProveedoresDB.ToListAsync();
             List<PrecioProveedores> precios = await _context.PreciosProveedoresDB.Where(x => x.ID_Producto == id).ToListAsync();
             ViewBag.Precios = from precio in precios
-                                  join proveedor in proveedores
-                                  on precio.ID_Proveedor equals proveedor?.ID_Proveedor
-                                  select new
-                                  {
-                                      ID_Precio = precio.ID_Precio,
-                                      Proveedor = proveedor.Nombre,
-                                      Clave = precio.ClaveProveedor,
-                                      Costo = precio.Precio
-                                  };
+                              join proveedor in proveedores
+                              on precio.ID_Proveedor equals proveedor?.ID_Proveedor
+                              select new
+                              {
+                                  ID_Precio = precio.ID_Precio,
+                                  Proveedor = proveedor.Nombre,
+                                  Clave = precio.ClaveProveedor,
+                                  Costo = precio.Precio
+                              };
             List<SelectListItem> tipos = new List<SelectListItem>();
             List<TipoProductos> tiposProductos = _context.TipoProductosDB.ToList();
             tipos.AddRange((from tipoProducto in tiposProductos
@@ -103,14 +110,15 @@ namespace PracticaWeb.Controllers
                             }).ToList());
             SelectListItem? selectListItem = (from tipoProducto in tiposProductos
                                               where tipoProducto.ID_TipoProducto == productos.TipoProducto
-                                             select new SelectListItem() { Text = tipoProducto.Nombre + " | " + tipoProducto.Descripcion, Value = tipoProducto.ID_TipoProducto.ToString() }).FirstOrDefault();
+                                              select new SelectListItem() { Text = tipoProducto.Nombre + " | " + tipoProducto.Descripcion, Value = tipoProducto.ID_TipoProducto.ToString() }).FirstOrDefault();
             if (selectListItem != null)
                 tipos.Insert(0, selectListItem);
             ViewBag.Tipos = tipos;
             ViewBag.Proveedores = (from proveedor in proveedores
-                                   select new SelectListItem() { 
+                                   select new SelectListItem()
+                                   {
                                        Text = proveedor.Nombre,
-                                       Value = proveedor.Descripcion
+                                       Value = proveedor.ID_Proveedor.ToString()
                                    });
             return View(productos);
         }
@@ -120,9 +128,9 @@ namespace PracticaWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID_Producto,Nombre,Clave,Activo,Precio,TipoProducto")] Productos productos)
+        public async Task<IActionResult> Edit(int id, [Bind("ID_Producto,Nombre,Clave,Activo,Precio,TipoProducto")] Productos producto)
         {
-            if (id != productos.ID_Producto)
+            if (id != producto.ID_Producto)
             {
                 return NotFound();
             }
@@ -131,12 +139,12 @@ namespace PracticaWeb.Controllers
             {
                 try
                 {
-                    _context.Update(productos);
+                    _context.Update(producto);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductosExists(productos.ID_Producto))
+                    if (!ProductosExists(producto.ID_Producto))
                     {
                         return NotFound();
                     }
@@ -147,7 +155,7 @@ namespace PracticaWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(productos);
+            return View(producto);
         }
 
         // GET: Productos/Delete/5
@@ -187,5 +195,23 @@ namespace PracticaWeb.Controllers
         {
             return _context.ProductosDB.Any(e => e.ID_Producto == id);
         }
+
+        //[HttpPost]
+        //[Route({ID_Producto,ID_Proveedor,Precio,ClaveProveedores})]
+        //public async Task<JsonResult> NuevoPrecio(int ID_Producto, int ID_Proveedor,decimal Precio, string ClaveProveedor)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        PrecioProveedores precioProveedores = new PrecioProveedores();
+        //        precioProveedores.ID_Producto = ID_Producto;
+        //        precioProveedores.ID_Proveedor = ID_Proveedor;
+        //        precioProveedores.Precio = Precio;
+        //        precioProveedores.ClaveProveedor = ClaveProveedor;
+        //        _context.Add(precioProveedores);
+        //        await _context.SaveChangesAsync();
+        //        return new JsonResult(new { code = 200 });
+        //    }
+        //    return new JsonResult(new { code = 201 });
+        //}
     }
 }

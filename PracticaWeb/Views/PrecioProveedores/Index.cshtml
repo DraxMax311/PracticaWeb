@@ -1,0 +1,54 @@
+﻿@model IEnumerable<PracticaWeb.Models.PrecioProveedores>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID_Producto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ID_Proveedor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClaveProveedor)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID_Producto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID_Proveedor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClaveProveedor)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID_Precio">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID_Precio">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID_Precio">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

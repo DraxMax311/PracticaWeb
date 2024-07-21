@@ -1,4 +1,4 @@
-﻿@model PracticaWeb.Models.Productos
+﻿@model PracticaWeb.Models.PrecioProveedores
 
 @{
     ViewData["Title"] = "Delete";
@@ -12,16 +12,16 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Clave)
+            @Html.DisplayNameFor(model => model.ID_Producto)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Clave)
+            @Html.DisplayFor(model => model.ID_Producto)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Activo)
+            @Html.DisplayNameFor(model => model.ID_Proveedor)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Activo)
+            @Html.DisplayFor(model => model.ID_Proveedor)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Precio)
@@ -30,16 +30,16 @@
             @Html.DisplayFor(model => model.Precio)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TipoProducto)
+            @Html.DisplayNameFor(model => model.ClaveProveedor)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TipoProducto)
+            @Html.DisplayFor(model => model.ClaveProveedor)
         </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="ID_Producto" />
+        <input type="hidden" asp-for="ID_Precio" />
         <input type="submit" value="Borrar" class="btn btn-danger" /> |
-        <a asp-action="Index" class="btn btn-primary">Volver</a>
+        <a asp-controller="Productos" asp-action="Index" class="btn btn-primary">Volver</a>
     </form>
 </div>
