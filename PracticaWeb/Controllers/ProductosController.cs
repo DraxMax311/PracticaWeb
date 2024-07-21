@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using PracticaWeb.Data;
 using PracticaWeb.Models;
 
@@ -19,74 +20,42 @@ namespace PracticaWeb.Controllers
         }
 
         // GET: Productos
-        public async Task<IActionResult> Index(string orden, string columna, string busqueda, int? pagina)
+        public async Task<IActionResult> Index(string orden, string tipo, string busqueda, int? pagina)
         {
             ViewData["OrdenActual"] = orden;
-            ViewData["ParamOrdenClave"] = string.IsNullOrEmpty(columna) ? "Clave_Desc" : "";
-            ViewData["ParamOrdenActivo"] = columna == "Activo" ? "Activo_Desc" : "Activo";
-            ViewData["ParamOrdenPrecio"] = columna == "Precio" ? "Precio_Desc" : "Precio";
-            ViewData["ParamOrdenClaveProv"] = columna == "ClaveProveedor" ? "ClaveProveedor_Desc" : "ClaveProveedor";
-            ViewData["ParamOrdenPrecioProv"] = columna == "PrecioProovedor" ? "PrecioProovedor_Desc" : "PrecioProovedor";
-            ViewData["ParamOrdenTipo"] = columna == "Tipo" ? "Tipo_Desc" : "Tipo";
             ViewData["Filtro"] = busqueda;
 
             if (busqueda != null)
                 pagina = 1;
-            else
-                busqueda = columna;
 
-            var productos = from prod in _context.Productos select prod;
+            var productos = from prod in _context.ProductosDB select prod;
             if (!string.IsNullOrEmpty(busqueda))
             {
-                productos = productos.Where(x => x.Clave == busqueda || x.ClaveProveedor== busqueda);
+                productos = productos.Where(x => x.Clave == busqueda || x.Nombre == busqueda);
             }
-            switch (columna)
-            {
-                case "Clave_Desc":
-                    productos = productos.OrderByDescending(x=>x.Clave);
-                    break;
-                case "Activo":
-                    productos = productos.OrderBy(x=>x.Activo);
-                    break;
-                case "Activo_Desc":
-                    productos = productos.OrderByDescending(x=>x.Activo);
-                    break;
-                case "Precio":
-                    productos = productos.OrderBy(x=>x.Precio);
-                    break;
-                case "Precio_Desc":
-                    productos = productos.OrderByDescending(x=>x.Precio);
-                    break;
-                case "ClaveProveedor":
-                    productos = productos.OrderBy(x=>x.ClaveProveedor);
-                    break;
-                case "ClaveProveedor_Desc":
-                    productos = productos.OrderByDescending(x=>x.ClaveProveedor);
-                    break;
-                case "PrecioProovedor":
-                    productos = productos.OrderBy(x=>x.PrecioProveedor);
-                    break;
-                case "PrecioProovedor_Desc":
-                    productos = productos.OrderByDescending(x=>x.PrecioProveedor);
-                    break;
-                case "Tipo":
-                    productos = productos.OrderBy(x=>x.TipoProducto);
-                    break;
-                case "Tipo_Desc":
-                    productos = productos.OrderByDescending(x=>x.TipoProducto);
-                    break;
-                default:
-                    productos = productos.OrderBy(x=>x.Clave);
-                    break;
-
-            }
-            int tamañoPagina = 3;
-            return View(await PaginatedList<Productos>.CreateAsync(productos.AsNoTracking(),pagina ?? 1,tamañoPagina));
+            if (!tipo.IsNullOrEmpty())
+                productos = productos.Where(x => x.TipoProducto == int.Parse(tipo));
+            int tamañoPagina = 5;
+            List<SelectListItem> tiposProducto = (from tipoProducto in _context.TipoProductosDB
+                                                  select new SelectListItem()
+                                                  {
+                                                      Text = tipoProducto.Nombre + " | " + tipoProducto.Descripcion,
+                                                      Value = tipoProducto.ID_TipoProducto.ToString()
+                                                  }).ToList();
+            ViewBag.Tipos = tiposProducto;
+            return View(await PaginatedList<Productos>.CreateAsync(productos.AsNoTracking(), pagina ?? 1, tamañoPagina));
         }
 
         // GET: Productos/Crear
         public IActionResult Crear()
         {
+            List<SelectListItem> tiposProducto = (from tipoProducto in _context.TipoProductosDB
+                                                  select new SelectListItem()
+                                                  {
+                                                      Text = tipoProducto.Nombre + " | " + tipoProducto.Descripcion,
+                                                      Value = tipoProducto.ID_TipoProducto.ToString()
+                                                  }).ToList();
+            ViewBag.Tipos = tiposProducto;
             return View();
         }
 
@@ -95,7 +64,7 @@ namespace PracticaWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Crear([Bind("ID_Producto,Clave,Activo,Precio,ClaveProveedor,PrecioProveedor,TipoProducto")] Productos productos)
+        public async Task<IActionResult> Crear([Bind("ID_Producto,Nombre,Clave,Activo,Precio,TipoProducto")] Productos productos)
         {
             if (ModelState.IsValid)
             {
@@ -114,11 +83,43 @@ namespace PracticaWeb.Controllers
                 return NotFound();
             }
 
-            var productos = await _context.Productos.FindAsync(id);
+            var productos = await _context.ProductosDB.FindAsync(id);
             if (productos == null)
             {
                 return NotFound();
             }
+            List<Proveedores> proveedores = await _context.ProveedoresDB.ToListAsync();
+            List<PrecioProveedores> precios = await _context.PreciosProveedoresDB.Where(x => x.ID_Producto == id).ToListAsync();
+            ViewBag.Precios = from precio in precios
+                              join proveedor in proveedores
+                              on precio.ID_Proveedor equals proveedor?.ID_Proveedor
+                              select new
+                              {
+                                  ID_Precio = precio.ID_Precio,
+                                  Proveedor = proveedor.Nombre,
+                                  Clave = precio.ClaveProveedor,
+                                  Costo = precio.Precio
+                              };
+            List<SelectListItem> tipos = new List<SelectListItem>();
+            List<TipoProductos> tiposProductos = _context.TipoProductosDB.ToList();
+            tipos.AddRange((from tipoProducto in tiposProductos
+                            select new SelectListItem()
+                            {
+                                Text = tipoProducto.Nombre + " | " + tipoProducto.Descripcion,
+                                Value = tipoProducto.ID_TipoProducto.ToString()
+                            }).ToList());
+            SelectListItem? selectListItem = (from tipoProducto in tiposProductos
+                                              where tipoProducto.ID_TipoProducto == productos.TipoProducto
+                                              select new SelectListItem() { Text = tipoProducto.Nombre + " | " + tipoProducto.Descripcion, Value = tipoProducto.ID_TipoProducto.ToString() }).FirstOrDefault();
+            if (selectListItem != null)
+                tipos.Insert(0, selectListItem);
+            ViewBag.Tipos = tipos;
+            ViewBag.Proveedores = (from proveedor in proveedores
+                                   select new SelectListItem()
+                                   {
+                                       Text = proveedor.Nombre,
+                                       Value = proveedor.ID_Proveedor.ToString()
+                                   });
             return View(productos);
         }
 
@@ -127,9 +128,9 @@ namespace PracticaWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID_Producto,Clave,Activo,Precio,ClaveProveedor,PrecioProveedor,TipoProducto")] Productos productos)
+        public async Task<IActionResult> Edit(int id, [Bind("ID_Producto,Nombre,Clave,Activo,Precio,TipoProducto")] Productos producto)
         {
-            if (id != productos.ID_Producto)
+            if (id != producto.ID_Producto)
             {
                 return NotFound();
             }
@@ -138,12 +139,12 @@ namespace PracticaWeb.Controllers
             {
                 try
                 {
-                    _context.Update(productos);
+                    _context.Update(producto);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductosExists(productos.ID_Producto))
+                    if (!ProductosExists(producto.ID_Producto))
                     {
                         return NotFound();
                     }
@@ -154,7 +155,7 @@ namespace PracticaWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(productos);
+            return View(producto);
         }
 
         // GET: Productos/Delete/5
@@ -165,7 +166,7 @@ namespace PracticaWeb.Controllers
                 return NotFound();
             }
 
-            var productos = await _context.Productos
+            var productos = await _context.ProductosDB
                 .FirstOrDefaultAsync(m => m.ID_Producto == id);
             if (productos == null)
             {
@@ -180,10 +181,10 @@ namespace PracticaWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var productos = await _context.Productos.FindAsync(id);
+            var productos = await _context.ProductosDB.FindAsync(id);
             if (productos != null)
             {
-                _context.Productos.Remove(productos);
+                _context.ProductosDB.Remove(productos);
             }
 
             await _context.SaveChangesAsync();
@@ -192,7 +193,25 @@ namespace PracticaWeb.Controllers
 
         private bool ProductosExists(int id)
         {
-            return _context.Productos.Any(e => e.ID_Producto == id);
+            return _context.ProductosDB.Any(e => e.ID_Producto == id);
         }
+
+        //[HttpPost]
+        //[Route({ID_Producto,ID_Proveedor,Precio,ClaveProveedores})]
+        //public async Task<JsonResult> NuevoPrecio(int ID_Producto, int ID_Proveedor,decimal Precio, string ClaveProveedor)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        PrecioProveedores precioProveedores = new PrecioProveedores();
+        //        precioProveedores.ID_Producto = ID_Producto;
+        //        precioProveedores.ID_Proveedor = ID_Proveedor;
+        //        precioProveedores.Precio = Precio;
+        //        precioProveedores.ClaveProveedor = ClaveProveedor;
+        //        _context.Add(precioProveedores);
+        //        await _context.SaveChangesAsync();
+        //        return new JsonResult(new { code = 200 });
+        //    }
+        //    return new JsonResult(new { code = 201 });
+        //}
     }
 }

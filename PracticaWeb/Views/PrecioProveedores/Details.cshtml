@@ -1,4 +1,4 @@
-﻿@model PracticaWeb.Models.Productos
+﻿@model PracticaWeb.Models.PrecioProveedores
 
 @{
     ViewData["Title"] = "Details";
@@ -8,20 +8,20 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Productos</h4>
+    <h4>PrecioProveedores</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Clave)
+            @Html.DisplayNameFor(model => model.ID_Producto)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Clave)
+            @Html.DisplayFor(model => model.ID_Producto)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Activo)
+            @Html.DisplayNameFor(model => model.ID_Proveedor)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Activo)
+            @Html.DisplayFor(model => model.ID_Proveedor)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Precio)
@@ -35,21 +35,9 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ClaveProveedor)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PrecioProveedor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PrecioProveedor)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TipoProducto)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TipoProducto)
-        </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ID_Producto">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.ID_Precio">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

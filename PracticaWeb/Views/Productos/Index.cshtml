@@ -1,6 +1,5 @@
-﻿@using PracticaWeb.Models
-@model PaginatedList<Productos>
-
+﻿@using PracticaWeb.Models;
+@model PaginatedList<Productos>;
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,39 +8,39 @@
 <div class="container card">
     <h1>Productos</h1>
     <form asp-action="Index" method="get">
-        <div class="form-actions no-color">
-            <p>
-                Buscar: <input type="text" name="busqueda" value="@ViewData["Filtro"]" />
+        <div class="form-actions row">
+            <div class="col-3">
+                Buscar: <input class="form-control" type="text" name="busqueda" value="@ViewData["Filtro"]" />
+            </div>
+            <div class="col-6">
+                <label>Tipo:</label>
+                <select name="tipo" class="form-control" asp-items="@ViewBag.Tipos">
+                </select>
+            </div>
+            <div class="col-3">
+                <label>&ensp;</label>
                 <input type="submit" value="Busqueda" class="btn btn-secondary" />
                 <a class="btn btn-danger" asp-action="Index">Limpiar Filtro</a>
-            </p>
+            </div>
         </div>
     </form>
+    <br />
 </div>
 <br />
 <div class="container card">
-    <table class="table">
+    <table class="table table-borderless table-hover">
         <thead>
             <tr>
-                <th>
-                    <a asp-action="Index" asp-route-columna="@ViewData["ParamOrdenClave"]" asp-route-busqueda="@ViewData["Filtro"]">Clave</a>
+                <th style="width:30%">
+                    <a asp-action="Index">Nombre</a>
                 </th>
-                <th>
-                    <a asp-action="Index" asp-route-columna="@ViewData["ParamOrdenActivo"]" asp-route-busqueda="@ViewData["Filtro"]">Activo</a>
+                <th style="width:40%">
+                    <a asp-action="Index">Clave</a>
                 </th>
-                <th>
-                    <a asp-action="Index" asp-route-columna="@ViewData["ParamOrdenPrecio"]" asp-route-busqueda="@ViewData["Filtro"]">Precio</a>
+                <th style="width:15%">
+                    <a asp-action="Index">Precio</a>
                 </th>
-                <th>
-                    <a asp-action="Index" asp-route-columna="@ViewData["ParamOrdenClaveProv"]" asp-route-busqueda="@ViewData["Filtro"]">Clave Proveedor</a>
-                </th>
-                <th>
-                    <a asp-action="Index" asp-route-columna="@ViewData["ParamOrdenPrecioProv"]" asp-route-busqueda="@ViewData["Filtro"]">Precio Proveedor</a>
-                </th>
-                <th>
-                    <a asp-action="Index" asp-route-columna="@ViewData["ParamOrdenTipo"]" asp-route-busqueda="@ViewData["Filtro"]">Tipo Producto</a>
-                </th>
-                <th></th>
+                <th style="width:15%"></th>
             </tr>
         </thead>
         <tbody>
@@ -49,26 +48,17 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Clave)
+                        @Html.DisplayFor(modelItem => item.Nombre)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Activo)
+                        @Html.DisplayFor(modelItem => item.Clave)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Precio)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ClaveProveedor)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PrecioProveedor)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TipoProducto)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.ID_Producto">Edit</a> |
-                        <a asp-action="Delete" asp-route-id="@item.ID_Producto">Delete</a>
+                    <td style="display:block;align-content:space-evenly">
+                        <a asp-action="Edit" asp-route-id="@item.ID_Producto" class="btn btn-warning" >Editar</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ID_Producto" class="btn btn-danger">Borrar</a>
                     </td>
                 </tr>
             }
@@ -88,7 +78,7 @@
                asp-route-columna="@ViewData["OrdenActual"]"
                asp-route-pagina="@(Model.PageIndex - 1)"
                asp-route-busqueda="@ViewData["Filtro"]"
-               class="btn btn-default @prevDeshabilitado">
+               class="btn btn-default btn-primary @prevDeshabilitado">
                 Anterior
             </a>
         </div>
@@ -97,10 +87,11 @@
                asp-route-columna="@ViewData["OrdenActual"]"
                asp-route-pagina="@(Model.PageIndex + 1)"
                asp-route-busqueda="@ViewData["Filtro"]"
-               class="btn btn-default @sigDeshabilitado">
+               class="btn btn-default btn-primary @sigDeshabilitado">
                 Siguiente
             </a>
         </div>
+        <p></p>
     </div>
 
 </div>

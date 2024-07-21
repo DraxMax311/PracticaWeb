@@ -17,13 +17,18 @@
         <form asp-action="Crear">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control"/>
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Clave" class="control-label"></label>
                 <input asp-for="Clave" class="form-control" />
                 <span asp-validation-for="Clave" class="text-danger"></span>
             </div>
             <div class="form-group form-check" style="display:flex;justify-content:center">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Activo" /> @Html.DisplayNameFor(model => model.Activo)
+                    <input class="form-check-input" asp-for="Activo" checked/> @Html.DisplayNameFor(model => model.Activo)
                 </label>
             </div>
             <div class="form-group">
@@ -32,18 +37,10 @@
                 <span asp-validation-for="Precio" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ClaveProveedor" class="control-label"></label>
-                <input asp-for="ClaveProveedor" class="form-control" />
-                <span asp-validation-for="ClaveProveedor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PrecioProveedor" class="control-label"></label>
-                <input asp-for="PrecioProveedor" class="form-control" />
-                <span asp-validation-for="PrecioProveedor" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="TipoProducto" class="control-label"></label>
-                <input asp-for="TipoProducto" class="form-control" />
+                <select name="TipoProducto" class="form-control" asp-items="@ViewBag.Tipos" aria-label="Seleccione un tipo">
+                    <span asp-validation-for="TipoProducto" class="text-danger"></span>
+                </select>
                 <span asp-validation-for="TipoProducto" class="text-danger"></span>
             </div>
             <hr />
