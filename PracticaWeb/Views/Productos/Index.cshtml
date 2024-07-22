@@ -32,15 +32,19 @@
         <thead>
             <tr>
                 <th style="width:30%">
-                    <a asp-action="Index">Nombre</a>
+                    <a asp-action="Index" asp-route-columna="@ViewData["ParamOrdenNombre"]" asp-route-busqueda="@ViewData["Filtro"]">Nombre</a>
                 </th>
                 <th style="width:40%">
-                    <a asp-action="Index">Clave</a>
+                    <a asp-action="Index" asp-route-columna="@ViewData["ParamOrdenClave"]" asp-route-busqueda="@ViewData["Filtro"]">Clave</a>
                 </th>
                 <th style="width:15%">
-                    <a asp-action="Index">Precio</a>
+                    <a asp-action="Index" asp-route-columna="@ViewData["ParamOrdenPrecio"]" asp-route-busqueda="@ViewData["Filtro"]">Precio</a>
                 </th>
-                <th style="width:15%"></th>
+                <th style="width:15%">
+                    <p style="display:flex;justify-content:flex-end">
+                        <a asp-action="Crear" class="btn btn-primary">Agregar Producto</a>
+                    </p>
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -64,10 +68,6 @@
             }
         </tbody>
     </table>
-    <p style="display:flex;justify-content:flex-end">
-        <a asp-action="Crear" class="btn btn-primary">Agregar Producto</a>
-    </p>
-
     @{
         var prevDeshabilitado = !Model.HasPreviousPage ? "disabled" : "";
         var sigDeshabilitado = !Model.HasNextPage ? "disabled" : "";

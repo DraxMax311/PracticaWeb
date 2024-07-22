@@ -20,9 +20,12 @@ namespace PracticaWeb.Controllers
         }
 
         // GET: Productos
-        public async Task<IActionResult> Index(string orden, string tipo, string busqueda, int? pagina)
+        public async Task<IActionResult> Index(string orden, string tipo, string busqueda, string columna, int? pagina)
         {
             ViewData["OrdenActual"] = orden;
+            ViewData["ParamOrdenNombre"] = columna == "Nombre" ? "Nombre_Desc" : "Nombre";
+            ViewData["ParamOrdenClave"] = columna == "Clave" ? "Clave_desc" : "Clave";
+            ViewData["ParamOrdenPrecio"] = columna == "Precio" ? "Precio_Desc" : "Precio";
             ViewData["Filtro"] = busqueda;
 
             if (busqueda != null)
@@ -35,6 +38,28 @@ namespace PracticaWeb.Controllers
             }
             if (!tipo.IsNullOrEmpty())
                 productos = productos.Where(x => x.TipoProducto == int.Parse(tipo));
+
+            switch (columna)
+            {
+                case "Nombre_Desc":
+                    productos = productos.OrderByDescending(x => x.Nombre);
+                    break;
+                case "Clave":
+                    productos = productos.OrderBy(x => x.Clave);
+                    break;
+                case "Clave_Desc":
+                    productos = productos.OrderByDescending(x => x.Clave);
+                    break;
+                case "Precio":
+                    productos = productos.OrderBy(x => x.Precio);
+                    break;
+                case "Precio_Desc":
+                    productos = productos.OrderByDescending(x => x.Precio);
+                    break;
+                default:
+                    productos = productos.OrderBy(x => x.Nombre);
+                    break;
+            }
             int tamañoPagina = 5;
             List<SelectListItem> tiposProducto = (from tipoProducto in _context.TipoProductosDB
                                                   select new SelectListItem()
@@ -181,10 +206,12 @@ namespace PracticaWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var productos = await _context.ProductosDB.FindAsync(id);
-            if (productos != null)
+            var producto = await _context.ProductosDB.FindAsync(id);
+            if (producto != null)
             {
-                _context.ProductosDB.Remove(productos);
+                _context.ProductosDB.Remove(producto);
+                var precios = await _context.PreciosProveedoresDB.Where(x => x.ID_Producto == producto.ID_Producto).ToListAsync();
+                _context.PreciosProveedoresDB.RemoveRange(precios);
             }
 
             await _context.SaveChangesAsync();

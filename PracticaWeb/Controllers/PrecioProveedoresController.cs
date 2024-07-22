@@ -72,7 +72,7 @@ namespace PracticaWeb.Controllers
                     ViewBag.NuevoPrecio = precioProveedores;
                     return PartialView("NewTableLine");
                 }
-                return PartialView("NewTableLine");
+                return Json(new { code = 201, message = "No se pudo agregar el proveedor por que dicho proveedor ya tiene precio." });
             }
             catch (Exception ex)
             {
