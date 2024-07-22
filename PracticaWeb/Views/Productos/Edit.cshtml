@@ -121,7 +121,7 @@
                 <div class="d-flex justify-content-center form-group">
                     <div class="form-group">
                         <label class="control-label">Precio</label>
-                        <input type="number" class="form-control" id="Precio">
+                        <input type="number" class="form-control" id="PrecioProveedor">
                     </div>
                 </div>
             </div>
@@ -136,7 +136,7 @@
         producto = document.getElementById('ID_Producto').value;
         proveedor = document.getElementById('ID_ProveedorSelected').value;
         clave = document.getElementById('ClaveProveedor').value;
-        precio = document.getElementById('Precio').value;
+        precio = document.getElementById('PrecioProveedor').value;
         $.ajax({
             'url': '/PrecioProveedores/Crear',
             'type': 'POST',
@@ -148,7 +148,10 @@
             },
             'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
             'success': function (response) {
+                if(response.code != 201)
                 location.reload()
+                else
+                alert(response.message)
             },
             'error': function (error) {
                 console.log('error')

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PracticaWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0980d07e4219029d00f7392722da3b8f0c84a551")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6062389fa7bbe024a3b99a17058b8172394465e7")]
 [assembly: System.Reflection.AssemblyProductAttribute("PracticaWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PracticaWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
